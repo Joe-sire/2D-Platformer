@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @onready var animation : AnimatedSprite2D = $AnimatedSprite2D
+@onready var jumpsound: AudioStreamPlayer = $jumpsound
+@onready var deathsound: AudioStreamPlayer = $deathsound
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -15,7 +17,7 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("Forward") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		
+		jumpsound.play()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -47,4 +49,5 @@ func _physics_process(delta: float) -> void:
 		respawn()
 
 func respawn():
+	deathsound.play()
 	position = start_position

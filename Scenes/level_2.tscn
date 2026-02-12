@@ -1,3 +1,15 @@
 [gd_scene format=3 uid="uid://dxuf1c4607yvs"]
 
+[ext_resource type="Script" uid="uid://m022cxeg4pbb" path="res://Scripts/level_2.gd" id="1_v3rpw"]
+
 [node name="level_2" type="Node2D" unique_id=1546435817]
+script = ExtResource("1_v3rpw")
+
+[node name="Button" type="Button" parent="." unique_id=1579132235]
+offset_left = 520.0
+offset_top = 280.0
+offset_right = 632.0
+offset_bottom = 312.0
+text = "Play Again"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

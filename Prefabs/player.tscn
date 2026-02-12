@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bm4j0gp13xyht" path="res://Sprites/icon.svg" id="2_y5hcb"]
 [ext_resource type="Texture2D" uid="uid://dl3pncsyfp2cn" path="res://Sprites/spritesheet-characters-default.png" id="3_y5hcb"]
 [ext_resource type="AudioStream" uid="uid://dw4juky56uujn" path="res://Sounds/sfx_jump.ogg" id="4_2nftw"]
+[ext_resource type="AudioStream" uid="uid://xbigch5ps48w" path="res://Sounds/sfx_bump.ogg" id="5_knrd4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
 size = Vector2(56, 70)
@@ -89,3 +90,6 @@ frame_progress = 0.7589023
 
 [node name="jumpsound" type="AudioStreamPlayer" parent="." unique_id=1300625972]
 stream = ExtResource("4_2nftw")
+
+[node name="deathsound" type="AudioStreamPlayer" parent="." unique_id=126301019]
+stream = ExtResource("5_knrd4")

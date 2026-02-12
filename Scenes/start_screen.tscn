@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bw42eor2w02fx"]
+
+[ext_resource type="Script" uid="uid://bteaum732s533" path="res://Scripts/start_screen.gd" id="1_i8r30"]
+
+[node name="Start Screen" type="Node2D" unique_id=968849922]
+script = ExtResource("1_i8r30")
