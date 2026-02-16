@@ -5,6 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://nwiiwb87fhah" path="res://Prefabs/spike.tscn" id="3_evi0p"]
 [ext_resource type="Texture2D" uid="uid://bur0hkg4hv57n" path="res://Sprites/spritesheet-tiles-default.png" id="5_6444e"]
 [ext_resource type="Texture2D" uid="uid://dnjh75gxtkpw" path="res://Sprites/background_color_mushrooms.png" id="5_evi0p"]
+[ext_resource type="Script" uid="uid://ddbbs4m1eo8ml" path="res://Scripts/jump_set.gd" id="5_lsmp6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsmp6"]
+size = Vector2(178, 202)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_evi0p"]
 texture = ExtResource("5_6444e")
@@ -377,7 +381,7 @@ centered = false
 offset = Vector2(0, -144.48)
 
 [node name="Player" parent="." unique_id=859195738 instance=ExtResource("1_7p6j4")]
-position = Vector2(416, 416)
+position = Vector2(376, 464)
 
 [node name="Spike" parent="." unique_id=626404845 instance=ExtResource("3_evi0p")]
 position = Vector2(800, 496)
@@ -390,6 +394,14 @@ position = Vector2(1568, 176)
 
 [node name="Portal" parent="." unique_id=2062139749 instance=ExtResource("3_7p6j4")]
 position = Vector2(2144, -152)
+
+[node name="Jump Set" type="Area2D" parent="." unique_id=91696400]
+position = Vector2(8, 24)
+script = ExtResource("5_lsmp6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jump Set" unique_id=1341175543]
+position = Vector2(1528, 136)
+shape = SubResource("RectangleShape2D_lsmp6")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1433010581]
 tile_map_data = PackedByteArray("AAAEAAgAAQAAAAAAAAAFAAgAAQAAAAAAAAAGAAgAAQAAAAAAAAAHAAgAAQAAAAAAAAAIAAgAAQAAAAAAAAAJAAgAAQAAAAAAAAAKAAgAAQAAAAAAAAALAAgAAQAAAAAAAAAMAAgAAQAAAAAAAAANAAgAAQAAAAAAAAAOAAgAAQAAAAAAAAAQAAcAAQACAAEAAAASAAYAAQAKAAAAAAATAAUAAQAKAAAAAAAUAAUAAQAKAAAAAAAVAAQAAQAKAAAAAAAXAAMAAQAAAAAAAAAYAAMAAQAAAAAAAAAcAAEAAQACAAEAAAAeAAAAAQAKAAAAAAAfAP//AQAKAAAAAAAgAP//AQAKAAAAAAAhAP7/AQAKAAAAAAAbAAIAAQACAAEAAAAaAAMAAQACAAEAAAA=")
