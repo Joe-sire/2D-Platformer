@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://tfy14k2ynhts"]
+
+[ext_resource type="Texture2D" uid="uid://bvaj62e812dif" path="res://Sprites/Screenshot_2026-02-23_143621-removebg-preview.png" id="1_yddnh"]
+[ext_resource type="Script" uid="uid://gn2fmmbgcrly" path="res://Scripts/gpu_particles_2d.gd" id="2_g8wx3"]
+
+[sub_resource type="Curve" id="Curve_0m2jd"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.49438208), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_huirm"]
+curve = SubResource("Curve_0m2jd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lsmp6"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_huirm")
+
+[node name="GPUParticles2D" type="GPUParticles2D" unique_id=1920982410]
+emitting = false
+amount = 1
+texture = ExtResource("1_yddnh")
+lifetime = 0.76
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_lsmp6")
+script = ExtResource("2_g8wx3")

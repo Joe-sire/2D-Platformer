@@ -4,15 +4,15 @@ extends CharacterBody2D
 @onready var jumpsound: AudioStreamPlayer = $jumpsound
 @onready var deathsound: AudioStreamPlayer = $deathsound
 
+const CLOUD_EFFECT = preload("res://Scenes/gpu_particles_2d.tscn")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const COYOTE_DURATION = 0.15 # Grace period in seconds
 
-# Changed these to variables so they can be modified mid-level
 var max_extra_jumps := 2 
 var extra_jumps_left := 2
 var coyote_timer := 0.5
-var start_position = Vector2(512, 256)
+var start_position = Vector2(288, 592)
 
 signal jumps_changed(new_current, new_max)
 
@@ -58,7 +58,14 @@ func _try_jump():
 	elif extra_jumps_left > 0:
 		extra_jumps_left -= 1
 		jumps_changed.emit(extra_jumps_left, max_extra_jumps)
+		_spawn_cloud()
 		_do_jump()
+
+func _spawn_cloud():
+	var cloud = CLOUD_EFFECT.instantiate()
+	cloud.global_position = global_position + Vector2(0, -8) 
+	get_parent().add_child(cloud)
+	cloud.scale = Vector2(0.5, 0.5)
 
 func _do_jump():
 	velocity.y = JUMP_VELOCITY
