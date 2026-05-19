@@ -1,11 +1,13 @@
 [gd_scene format=4 uid="uid://bjky6875baijl"]
 
-[ext_resource type="PackedScene" uid="uid://c41w7pppuwfm5" path="res://Prefabs/player.tscn" id="1_7p6j4"]
+[ext_resource type="PackedScene" uid="uid://c41w7pppuwfm5" path="res://Scenes/player.tscn" id="1_7p6j4"]
 [ext_resource type="PackedScene" uid="uid://00lm4ipp44ow" path="res://Scenes/portal.tscn" id="3_7p6j4"]
-[ext_resource type="PackedScene" uid="uid://nwiiwb87fhah" path="res://Prefabs/spike.tscn" id="3_evi0p"]
+[ext_resource type="PackedScene" uid="uid://nwiiwb87fhah" path="res://Scenes/spike.tscn" id="3_evi0p"]
 [ext_resource type="Texture2D" uid="uid://bur0hkg4hv57n" path="res://Sprites/spritesheet-tiles-default.png" id="5_6444e"]
 [ext_resource type="Texture2D" uid="uid://dnjh75gxtkpw" path="res://Sprites/background_color_mushrooms.png" id="5_evi0p"]
 [ext_resource type="PackedScene" uid="uid://tfy14k2ynhts" path="res://Scenes/gpu_particles_2d.tscn" id="6_evi0p"]
+[ext_resource type="Script" uid="uid://dbdg0ucjrtlfd" path="res://Scripts/health_bar.gd" id="7_xrdnt"]
+[ext_resource type="Texture2D" uid="uid://bm4j0gp13xyht" path="res://Sprites/icon.svg" id="8_wrinw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_evi0p"]
 texture = ExtResource("5_6444e")
@@ -362,7 +364,8 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSet" id="TileSet_lsmp6"]
 tile_size = Vector2i(64, 64)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 2
 sources/1 = SubResource("TileSetAtlasSource_evi0p")
 
 [node name="Level1" type="Node2D" unique_id=763889314]
@@ -378,7 +381,7 @@ centered = false
 offset = Vector2(0, -144.48)
 
 [node name="Player" parent="." unique_id=859195738 instance=ExtResource("1_7p6j4")]
-position = Vector2(288, 592)
+position = Vector2(824, -176)
 
 [node name="Spike" parent="." unique_id=626404845 instance=ExtResource("3_evi0p")]
 position = Vector2(352, 176)
@@ -400,3 +403,66 @@ tile_map_data = PackedByteArray("AAAGAAMAAQAKAAAAAAAFAAMAAQAKAAAAAAAEAAMAAQAKAAA
 tile_set = SubResource("TileSet_lsmp6")
 
 [node name="GPUParticles2D" parent="." unique_id=1920982410 instance=ExtResource("6_evi0p")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2139391590]
+
+[node name="Health Bar" type="Node2D" parent="CanvasLayer" unique_id=1222232519]
+position = Vector2(584, 336)
+script = ExtResource("7_xrdnt")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer/Health Bar" unique_id=1184788041]
+position = Vector2(-539.2, -291.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_wrinw")
+
+[node name="Sprite2D3" type="Sprite2D" parent="CanvasLayer/Health Bar" unique_id=1244232410]
+position = Vector2(-491.2, -291.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_wrinw")
+
+[node name="Sprite2D4" type="Sprite2D" parent="CanvasLayer/Health Bar" unique_id=239036512]
+position = Vector2(-443.2, -291.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_wrinw")
+
+[node name="Sprite2D5" type="Sprite2D" parent="CanvasLayer/Health Bar" unique_id=867010351]
+position = Vector2(-395.2, -291.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_wrinw")
+
+[node name="Sprite2D6" type="Sprite2D" parent="CanvasLayer/Health Bar" unique_id=1480465637]
+position = Vector2(-347.2, -291.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_wrinw")
+
+[node name="Sprite2D7" type="Sprite2D" parent="CanvasLayer/Health Bar" unique_id=469038224]
+position = Vector2(-299.2, -291.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_wrinw")
+
+[node name="Sprite2D8" type="Sprite2D" parent="CanvasLayer/Health Bar" unique_id=1989793078]
+position = Vector2(-251.20001, -291.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_wrinw")
+
+[node name="Sprite2D9" type="Sprite2D" parent="CanvasLayer/Health Bar" unique_id=187863639]
+position = Vector2(-203.20001, -291.2)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("8_wrinw")
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=603651303]
+offset_left = 19.0
+offset_top = 75.0
+offset_right = 59.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="CanvasLayer" unique_id=146093219]
+offset_left = 16.0
+offset_top = 113.0
+offset_right = 56.0
+offset_bottom = 136.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)

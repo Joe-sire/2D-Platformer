@@ -68,7 +68,9 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=859195738]
+collision_mask = 6
 script = ExtResource("1_5wxv7")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=773142815]
 visible = false

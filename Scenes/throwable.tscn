@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://gajjcachkrx3"]
+
+[ext_resource type="Script" uid="uid://c5fxsgxctr2a1" path="res://Scripts/throwable.gd" id="1_686bp"]
+[ext_resource type="Texture2D" uid="uid://bm4j0gp13xyht" path="res://Sprites/icon.svg" id="2_cbmkd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_80pas"]
+radius = 8.0
+height = 64.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cbmkd"]
+radius = 8.0
+height = 64.0
+
+[node name="Throwable" type="Area2D" unique_id=1557665205]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_686bp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1263545660]
+scale = Vector2(0.5, 0.125)
+texture = ExtResource("2_cbmkd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=561134451]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_80pas")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1057337430]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1957036674]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_cbmkd")
+debug_color = Color(0.8725787, 0.34838757, 0, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -5,44 +5,33 @@ extends CharacterBody2D
 @onready var deathsound: AudioStreamPlayer = $deathsound
 
 const CLOUD_EFFECT = preload("res://Scenes/gpu_particles_2d.tscn")
-const SPEED = 300.0
+const SPEED = 14000.0
 const JUMP_VELOCITY = -400.0
-const COYOTE_DURATION = 0.15 # Grace period in seconds
-
-var max_extra_jumps := 2 
-var extra_jumps_left := 2
-var coyote_timer := 0.5
+const THROWABLE_SCENE = preload("res://Scenes/throwable.tscn")
+const gravity = 700
 var start_position = Vector2(288, 592)
 
-signal jumps_changed(new_current, new_max)
-
 func _ready():
-	# Update UI with initial values
-	jumps_changed.emit(extra_jumps_left, max_extra_jumps)
+	pass
 
 func _physics_process(delta: float) -> void:
-	# 1. Gravity & Coyote Timer Logic
-	if is_on_floor():
-		coyote_timer = COYOTE_DURATION
-		# Reset jumps when touching the ground
-		if extra_jumps_left != max_extra_jumps:
-			extra_jumps_left = max_extra_jumps
-			jumps_changed.emit(extra_jumps_left, max_extra_jumps)
-	else:
-		velocity += get_gravity() * delta
-		coyote_timer -= delta # Count down the grace period
+	Globals.player_position = self.global_position
 
-	# 2. Handle Jump Input
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
 	if Input.is_action_just_pressed("Forward"):
-		_try_jump()
+		try_jump()
 
-	# 3. Horizontal Movement
 	var direction := Input.get_axis("Left", "Right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction * SPEED * delta
 		animation.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	if Input.is_action_just_pressed("Throw"):
+		throw()
 
 	move_and_slide()
 	_update_animations(direction)
@@ -50,16 +39,11 @@ func _physics_process(delta: float) -> void:
 	if position.y > 832:
 		respawn()
 
-func _try_jump():
-	# If timer > 0, we treat it as a floor jump
-	if coyote_timer > 0:
-		_do_jump()
-		coyote_timer = 0 # Disable coyote time until next floor touch
-	elif extra_jumps_left > 0:
-		extra_jumps_left -= 1
-		jumps_changed.emit(extra_jumps_left, max_extra_jumps)
-		_spawn_cloud()
-		_do_jump()
+func try_jump():
+	if is_on_floor():
+		velocity.y = JUMP_VELOCITY
+		jumpsound.play()
+
 
 func _spawn_cloud():
 	var cloud = CLOUD_EFFECT.instantiate()
@@ -67,21 +51,23 @@ func _spawn_cloud():
 	get_parent().add_child(cloud)
 	cloud.scale = Vector2(0.5, 0.5)
 
-func _do_jump():
-	velocity.y = JUMP_VELOCITY
-	jumpsound.play()
-
-# Call this from an Area2D to increase the jump limit
-func update_max_jumps(amount: int):
-	max_extra_jumps = amount
-	extra_jumps_left = max_extra_jumps
-	jumps_changed.emit(extra_jumps_left, max_extra_jumps)
-
 func _update_animations(direction):
 	if is_on_floor():
 		animation.play("run" if direction != 0 else "idle")
 	else:
 		animation.play("jump")
+
+func throw():
+	if Globals.pizzas_left > 0:
+		Globals.pizzas_left = Globals.pizzas_left - 1
+		Globals.pizza_start_position = Vector2(position.x, position.y)
+		var projectile = THROWABLE_SCENE.instantiate()
+		projectile.global_position = self.global_position + Vector2(0, 20)
+		var throw_dir = Vector2.LEFT if animation.flip_h else Vector2.RIGHT
+		projectile.direction = throw_dir
+		get_parent().add_child(projectile)
+	elif Globals.stuck:
+		Globals.returning_to_player = true
 
 func respawn():
 	deathsound.play()
