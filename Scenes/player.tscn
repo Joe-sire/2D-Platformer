@@ -7,6 +7,9 @@
 [ext_resource type="AudioStream" uid="uid://xbigch5ps48w" path="res://Sounds/sfx_bump.ogg" id="5_knrd4"]
 [ext_resource type="AudioStream" uid="uid://cxna1kswrlskp" path="res://Sounds/sfx_magic.ogg" id="6_hck1p"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3wgy"]
+size = Vector2(72, 84)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbghi"]
 size = Vector2(56, 70)
 
@@ -67,10 +70,16 @@ animations = [{
 "speed": 6.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=859195738]
+[node name="Player" type="CharacterBody2D" unique_id=859195738 groups=["Player"]]
 collision_mask = 6
 script = ExtResource("1_5wxv7")
-metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1291604013 groups=["Player_Area"]]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=1358224018]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_x3wgy")
+debug_color = Color(0.99999994, 0.013541611, 0.041450262, 0.41960785)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=773142815]
 visible = false
@@ -99,3 +108,9 @@ stream = ExtResource("5_knrd4")
 
 [node name="jumpchange" type="AudioStreamPlayer" parent="." unique_id=1719870403]
 stream = ExtResource("6_hck1p")
+
+[node name="Timer" type="Timer" parent="." unique_id=1030896282]
+autostart = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_hit"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

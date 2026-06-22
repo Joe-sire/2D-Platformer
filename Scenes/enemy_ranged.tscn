@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://xmgpaxelftbu"]
+
+[ext_resource type="Script" uid="uid://cmwi7tgr3pnc0" path="res://Scripts/enemy_ranged.gd" id="1_3bg5g"]
+[ext_resource type="Texture2D" uid="uid://bm4j0gp13xyht" path="res://Sprites/icon.svg" id="2_htpsb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_afpow"]
+size = Vector2(64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3bg5g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bg5g"]
+size = Vector2(80, 96)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1937381896]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_3bg5g")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=807282383]
+position = Vector2(-2.3841858e-07, 1.9073486e-06)
+scale = Vector2(0.5, 0.75)
+texture = ExtResource("2_htpsb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=128377591]
+shape = SubResource("RectangleShape2D_afpow")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1817916446]
+sprite_frames = SubResource("SpriteFrames_3bg5g")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=271088467]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1464908262]
+shape = SubResource("RectangleShape2D_3bg5g")
+debug_color = Color(0.92729264, 3.773451e-05, 0.6710732, 0.41960785)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

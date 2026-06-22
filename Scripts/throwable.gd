@@ -9,13 +9,13 @@ var returning_to_start = false
 const difference_value = 450
 
 func _ready() -> void:
-	pass
+	Globals.pizza = self
 
 func _physics_process(delta: float) -> void:
 	pizza_current_position = self.position
 	pizza_position_difference = Globals.pizza_start_position.distance_to(pizza_current_position)
 	pizza_position_to_player_difference = pizza_current_position.distance_to($"../Player".global_position)
-	if not Globals.stuck and not returning_to_start:
+	if not Globals.stuck and not returning_to_start and not Globals.returning_to_player:
 		position += direction * speed * delta
 	if pizza_position_difference > difference_value and not returning_to_start:
 		print("Coming Back")
@@ -43,11 +43,10 @@ func _physics_process(delta: float) -> void:
 		Globals.returning_to_player = true
 		returning_to_start = false
 	if Globals.returning_to_player:
+		returning_to_start = false
 		Globals.stuck = false
 		self.position.x = move_toward(self.position.x, Globals.player_position.x, 6)
 		self.position.y = move_toward(self.position.y, Globals.player_position.y, 6)
-		$"../CanvasLayer/Label".text = str(self.position)
-		$"../CanvasLayer/Label2".text = str($"../Player".global_position)
 	if Globals.returning_to_player and pizza_position_to_player_difference < 75:
 		Globals.pizzas_left += 1
 		$StaticBody2D.collision_layer = 3
@@ -60,8 +59,10 @@ func _physics_process(delta: float) -> void:
 		direction = Vector2.ZERO
 		Globals.returning_to_player = false
 		self.queue_free()
+
 func _on_body_entered(_body: Node2D) -> void:
-	_stick_to_wall()
+	if _body.name != "Non-stick Surface":
+		_stick_to_wall()
 
 func _stick_to_wall() -> void:
 	Globals.stuck = true

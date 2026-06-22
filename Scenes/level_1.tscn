@@ -2,12 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://c41w7pppuwfm5" path="res://Scenes/player.tscn" id="1_7p6j4"]
 [ext_resource type="PackedScene" uid="uid://00lm4ipp44ow" path="res://Scenes/portal.tscn" id="3_7p6j4"]
-[ext_resource type="PackedScene" uid="uid://nwiiwb87fhah" path="res://Scenes/spike.tscn" id="3_evi0p"]
+[ext_resource type="PackedScene" uid="uid://nwiiwb87fhah" path="res://Scenes/fire.tscn" id="3_evi0p"]
 [ext_resource type="Texture2D" uid="uid://bur0hkg4hv57n" path="res://Sprites/spritesheet-tiles-default.png" id="5_6444e"]
 [ext_resource type="Texture2D" uid="uid://dnjh75gxtkpw" path="res://Sprites/background_color_mushrooms.png" id="5_evi0p"]
 [ext_resource type="PackedScene" uid="uid://tfy14k2ynhts" path="res://Scenes/gpu_particles_2d.tscn" id="6_evi0p"]
 [ext_resource type="Script" uid="uid://dbdg0ucjrtlfd" path="res://Scripts/health_bar.gd" id="7_xrdnt"]
 [ext_resource type="Texture2D" uid="uid://bm4j0gp13xyht" path="res://Sprites/icon.svg" id="8_wrinw"]
+[ext_resource type="Script" uid="uid://cmobomhqsr0kq" path="res://Scripts/pizza_or_not.gd" id="9_wrinw"]
+[ext_resource type="PackedScene" uid="uid://eyths1tg8jyi" path="res://Scenes/enemy.tscn" id="10_chwpn"]
+[ext_resource type="PackedScene" uid="uid://xmgpaxelftbu" path="res://Scenes/enemy_ranged.tscn" id="11_af3po"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_evi0p"]
 texture = ExtResource("5_6444e")
@@ -381,7 +384,7 @@ centered = false
 offset = Vector2(0, -144.48)
 
 [node name="Player" parent="." unique_id=859195738 instance=ExtResource("1_7p6j4")]
-position = Vector2(824, -176)
+position = Vector2(1376, -112)
 
 [node name="Spike" parent="." unique_id=626404845 instance=ExtResource("3_evi0p")]
 position = Vector2(352, 176)
@@ -399,7 +402,7 @@ position = Vector2(1504, -272)
 position = Vector2(2144, -152)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1433010581]
-tile_map_data = PackedByteArray("AAAGAAMAAQAKAAAAAAAFAAMAAQAKAAAAAAAEAAMAAQAKAAAAAAAJAAAAAQAAAAAAAAALAP7/AQAAAAAAAAAMAP7/AQAAAAAAAAANAP7/AQAAAAAAAAAXAPz/AQACAAEAAAAYAPz/AQACAAEAAAAZAPz/AQACAAEAAAAaAPz/AQACAAEAAAAbAPz/AQACAAEAAAAhAP7/AQAAAAAAAAAgAP7/AQAAAAAAAAAIAAEAAQAAAAAAAAAeAP3/AQAKAAAAAAAeAPz/AQAKAAAAAAAeAPv/AQAKAAAAAAAQAP3/AQALAAEAAAAQAPz/AQACAAEAAAAQAPv/AQACAAEAAAAHAAcAAQACAAEAAAAIAAYAAQACAAEAAAAJAAYAAQACAAEAAAAKAAYAAQACAAEAAAAFAAoAAQAAAAAAAAAEAAoAAQAAAAAAAAADAAoAAQAAAAAAAAAQAPr/AQACAAEAAAAeAPr/AQAKAAAAAAAeAPn/AQAKAAAAAAAeAPj/AQAKAAAAAAATAP7/AQAKAAAAAAAQAPn/AQACAAEAAAA=")
+tile_map_data = PackedByteArray("AAAGAAMAAQAKAAAAAAAFAAMAAQAKAAAAAAAEAAMAAQAKAAAAAAAJAAAAAQAAAAAAAAALAP7/AQAAAAAAAAAMAP7/AQAAAAAAAAANAP7/AQAAAAAAAAAXAPz/AQACAAEAAAAYAPz/AQACAAEAAAAZAPz/AQACAAEAAAAaAPz/AQACAAEAAAAbAPz/AQACAAEAAAAhAP7/AQAAAAAAAAAgAP7/AQAAAAAAAAAIAAEAAQAAAAAAAAAeAP3/AQAKAAAAAAAeAPz/AQAKAAAAAAAeAPv/AQAKAAAAAAAQAP3/AQALAAEAAAAQAPz/AQACAAEAAAAQAPv/AQACAAEAAAAHAAcAAQACAAEAAAAIAAYAAQACAAEAAAAJAAYAAQACAAEAAAAKAAYAAQACAAEAAAAFAAoAAQAAAAAAAAAEAAoAAQAAAAAAAAADAAoAAQAAAAAAAAAQAPr/AQACAAEAAAAeAPr/AQAKAAAAAAAeAPn/AQAKAAAAAAAeAPj/AQAKAAAAAAATAP7/AQAKAAAAAAAQAPn/AQACAAEAAAAbAAEAAQACAAEAAAAaAAEAAQACAAEAAAAZAAEAAQACAAEAAAAYAAEAAQACAAEAAAAXAAEAAQACAAEAAAAWAAEAAQACAAEAAAAcAAEAAQACAAEAAAAdAAAAAQACAAEAAAAdAP//AQACAAEAAAAVAAAAAQACAAEAAAAVAP//AQACAAEAAAAGAAoAAQAAAAAAAAAHAAoAAQAAAAAAAAAIAAoAAQAAAAAAAAAJAAoAAQAAAAAAAAAKAAoAAQAAAAAAAAALAAoAAQAAAAAAAAAMAAoAAQAAAAAAAAANAAoAAQAAAAAAAAAOAAoAAQAAAAAAAAAPAAoAAQAAAAAAAAAQAAoAAQAAAAAAAAARAAoAAQAAAAAAAAASAAoAAQAAAAAAAAATAAoAAQAAAAAAAAAUAAoAAQAAAAAAAAAVAAoAAQAAAAAAAAAWAAoAAQAAAAAAAAAXAAoAAQAAAAAAAAAYAAoAAQAAAAAAAAAZAAoAAQAAAAAAAAAaAAoAAQAAAAAAAAAbAAoAAQAAAAAAAAAcAAoAAQAAAAAAAAAdAAoAAQAAAAAAAAAeAAoAAQAAAAAAAAAfAAoAAQAAAAAAAAAgAAoAAQAAAAAAAAAhAAoAAQAAAAAAAAA=")
 tile_set = SubResource("TileSet_lsmp6")
 
 [node name="GPUParticles2D" parent="." unique_id=1920982410 instance=ExtResource("6_evi0p")]
@@ -451,18 +454,16 @@ position = Vector2(-203.20001, -291.2)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("8_wrinw")
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=603651303]
-offset_left = 19.0
-offset_top = 75.0
-offset_right = 59.0
-offset_bottom = 98.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+[node name="PizzaOrNot" type="Node2D" parent="CanvasLayer" unique_id=1236298027]
+script = ExtResource("9_wrinw")
 
-[node name="Label2" type="Label" parent="CanvasLayer" unique_id=146093219]
-offset_left = 16.0
-offset_top = 113.0
-offset_right = 56.0
-offset_bottom = 136.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/PizzaOrNot" unique_id=1123711342]
+position = Vector2(1084, 68.00006)
+scale = Vector2(0.6875, 0.6875)
+texture = ExtResource("8_wrinw")
+
+[node name="Enemy" parent="." unique_id=1937381896 instance=ExtResource("10_chwpn")]
+position = Vector2(1648, 8)
+
+[node name="Enemy2" parent="." unique_id=1987683801 instance=ExtResource("11_af3po")]
+position = Vector2(1704, -304)

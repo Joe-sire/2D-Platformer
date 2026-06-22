@@ -26,11 +26,18 @@ project/assembly_name="2D Platformer"
 [file_customization]
 
 folder_colors={
-"res://Scenes/": "red",
-"res://Scripts/": "orange",
-"res://Sounds/": "green",
-"res://Sprites/": "blue"
+"res://Extras/": "red",
+"res://Scenes/": "orange",
+"res://Scripts/": "green",
+"res://Sounds/": "blue",
+"res://Sprites/": "pink"
 }
+
+[global_group]
+
+"Damage Source"=""
+Enemy=""
+Player_Area=""
 
 [input]
 

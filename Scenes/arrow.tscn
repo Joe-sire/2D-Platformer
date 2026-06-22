@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://gajjcachkrx3"]
+[gd_scene format=3 uid="uid://c3efydnn8smqk"]
 
-[ext_resource type="Script" uid="uid://c5fxsgxctr2a1" path="res://Scripts/throwable.gd" id="1_686bp"]
-[ext_resource type="Texture2D" uid="uid://bm4j0gp13xyht" path="res://Sprites/icon.svg" id="2_cbmkd"]
+[ext_resource type="Script" uid="uid://brmptyu4pmwjj" path="res://Scripts/arrow.gd" id="1_h5x2m"]
+[ext_resource type="Texture2D" uid="uid://bm4j0gp13xyht" path="res://Sprites/icon.svg" id="2_40cdi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_80pas"]
 radius = 8.0
@@ -11,14 +11,18 @@ height = 64.0
 radius = 8.0
 height = 64.0
 
-[node name="Throwable" type="Area2D" unique_id=1557665205]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h5x2m"]
+height = 72.0
+
+[node name="Arrow" type="Area2D" unique_id=1557665205]
 collision_layer = 3
 collision_mask = 2
-script = ExtResource("1_686bp")
+script = ExtResource("1_h5x2m")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1263545660]
 scale = Vector2(0.5, 0.125)
-texture = ExtResource("2_cbmkd")
+texture = ExtResource("2_40cdi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=561134451]
 rotation = 1.5707964
@@ -33,4 +37,11 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_cbmkd")
 debug_color = Color(0.8725787, 0.34838757, 0, 0.41960785)
 
+[node name="Area2D" type="Area2D" parent="." unique_id=247338918 groups=["Arrow", "Damage Source"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=379465736]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_h5x2m")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
